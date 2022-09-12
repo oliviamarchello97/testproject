@@ -1,0 +1,17 @@
+# Configuration for airbyte/source-salesforce
+# Documentation about this connector can be found at https://docs.airbyte.io/integrations/sources/salesforce
+resource_name: "salesforce"
+definition_type: source
+definition_id: b117307c-14b6-41aa-9422-947e34922962
+definition_image: airbyte/source-salesforce
+definition_version: 1.0.13
+
+# EDIT THE CONFIGURATION BELOW!
+configuration:
+  auth_type: "Client" # OPTIONAL | string
+  client_id: "3MVG9szVa2RxsqBYSVZCwccO.sbTotiDffUuNVJMuSFbbiH6fIlS_ZYsL8ejTIjKtTiASJBwVqgcKQDst2xWz"
+  client_secret: "843139BAAE2E383757D2E87E29083887284442BACC4D02081E5D745CB984899C"
+  refresh_token: "5Aep861HDR3iASSXIXm2qLBlJlA5rB8YHqI_9Wh5l_aM7qP6Tk32.A2tMycHV7UCwzJH3H5tsdr8VXsvsMUka2U"
+  streams_criteria:
+    - value: "Account"
+      criteria: "exacts"
