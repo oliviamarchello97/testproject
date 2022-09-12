@@ -1,0 +1,25 @@
+# Configuration for airbyte/destination-bigquery
+# Documentation about this connector can be found at https://docs.airbyte.io/integrations/destinations/bigquery
+resource_name: "bigquery"
+definition_type: destination
+definition_id: 22f6c74f-5699-40ff-833c-4a879ea40133
+definition_image: airbyte/destination-bigquery
+definition_version: 1.1.15
+
+# EDIT THE CONFIGURATION BELOW!
+configuration:
+  dataset_id: "airbyte"
+  project_id: "analytics-267921"
+  loading_method:
+    method: "GCS Staging" # REQUIRED | string}
+    credential:
+      credential_type: "HMAC_KEY"
+      hmac_key_secret: "fDEvOFT43MUsxWZsbqEwDX9tuBTySsf4Q3Y50Z+o"
+      hmac_key_access_id: "GOOG1EFB32TPELHJVHYDF3QINTLRHVXCJR4TRV5WTXKHMD66PA5YWPPE2EESA"
+    gcs_bucket_name: "opspipeline-bucket"
+    gcs_bucket_path: "airbyte"
+    keep_files_in_gcs-bucket: "Delete all tmp files from GCS"
+  credentials_json: '{"type": "service_account","project_id": "analytics-267921","private_key_id": "ab38e4019652c0b87b905f5de7283bd3330cab3c","private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDXfPROSE7N1Vxe\nF85ipKCfg1gbRPRyJwTg0JRfT37o1l1Gc3lZvLTd6m0Hn5Uyt0DiFHgwNy0CA6PF\nQxjKvHvRII+Am6XChi0a4wV7yuoGEApiM9hvrbNLC12aOdYSiehv719fpsscgHl/\nI9tmngyGyYU1pGHNejVRpwWyV6iWKuTEPpw3tVwDc2dr9oxZ2KmpghUX36SAD7qW\nhS8UVehy5qPZp2ooF/URgwHw7PUt1/zDwRkBrb7tYDsvdkH4Q+nX1JwHOkss4Eeq\nwvqyttXQoJlFMC83k8nZ7ea4ONEID3kfjW7tJDWSxo/VC5Lg70aLuS3pHu1PgjBH\nGvZJztHzAgMBAAECggEAGIP+x2kyjfhYKdxLfq18GKm4vGF77gDCbVFNkApbReId\neoZop+zwJs8k2FkvgDWZDB+IDPQ6CqCfYTHhAC+xZnlt2hPbJ+Zb+1MYrJzJQydQ\nBxwe45W/cCo62/D4ieNmrlVtZFR1hyiWqgBKVcJlanBC13d8KQReTIvT+hY+99Zz\n4GpKtmxM5g0uVjNYvxNbUC2zjILHjvbBqKJzWWqntT8/hLTQ2WEbRffjZUl4GTvZ\nt1aerBrmF2fiV0uHoTPsanGYgog+FYeepDH4e5qNCkIo6W6Z+bnCaZaeg13Fzn28\nkAHoAVgbEXYswRtn/RQoHdbyEbAAkrCKaR5XqbzJAQKBgQD7ISuAmoNtddk4256h\n7v36/JGltmyZrD6ySzZ0GR45EuXeSJJIw/3A2+Am1D0PzCFWKLLrlLFbSLgsBuUl\nnwlBtMYx44jE3vnX5PDKxdreug6+UWhYETVErUXTyN1Xw9qSVKSr0yekxgouezvd\ntXY3+cmj2IRN6V0pcXaEsK0AjwKBgQDbqtQZZF7dcT0wpSlBro8QVu4cE8Xa+TsJ\nae4ufO8hpPup9pCLeo8OnEHZAvmZekyGFYzfUtZogh3WDbiziKBelEq+DJg7qxhI\n6YIYYt3dpxPxoJHi8yaeVHMOvyQ5HrqQnwNny/lkhdODtdKxCHJJSFqqutVTftPS\nUGXKUQOCXQKBgQC4FVB2LM06Z7CbZSGbQj0axhldh6OD4ibzOv7ni6ID5D5r+naA\nsGpJ/OMKk3lPIysspRjCZ3S6nUujukouka2PZJwD5e5Tob8y6rc3bGFL8sbr63C5\nXaPWe807uXnG4+JMcY9kBJyCxEiiWeNAWcwWrBuK5yPUmMOZpXpjOb8XMQKBgH8n\nc37/SqqEUhdGg4sxsD6VE1/NUkpe2n2og+cFCqc/CS5pO2KBny2l5bfosPLWiFVV\nRCZBnTsBlqPBbZj/DVWyIVHBmJ1xfK03/cZ/9E3J2RGVEN1+QmyEFdYDbsRhtTzh\nzubWe5ZkoPss1LkFWqJw74rEe5fJYnPrdgCWxKFBAoGBAIVSuGCDUHWN5hCact3r\npai5Sobkz8mhTbAbzAcyHHVi77Z490OE0p9bBfZAZFmr39x0M6iZXI+9enpDYD6H\n9oxZrWlJySkwBGuksXAjIMUIv+3Iw2pNnpjA2r3csZZuPx7KQmy+BPQBBOx3pWLG\nuh21KTYz207smwU2TNqPyjDA\n-----END PRIVATE KEY-----\n","client_email": "dataflow@analytics-267921.iam.gserviceaccount.com","client_id": "108439431552090837983","auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dataflow%40analytics-267921.iam.gserviceaccount.com"}'
+  dataset_location: "US"
+  transformation_priority: "interactive"
+  big_query_client_buffer_size_mb: 15

@@ -1,0 +1,2227 @@
+# Configuration for connection salesforce_to_bigquery 
+definition_type: connection
+resource_name: "salesforce_to_bigquery "
+source_configuration_path: sources/salesforce/configuration.yaml
+destination_configuration_path: destinations/bigquery/configuration.yaml
+
+# EDIT THE CONFIGURATION BELOW!
+configuration:
+  status: active # REQUIRED | string | Allowed values: active, inactive, deprecated
+  namespace_definition: source # OPTIONAL | string | Allowed values: source, destination, customformat
+  namespace_format: "${SOURCE_NAMESPACE}" # OPTIONAL | string | Used when namespaceDefinition is 'customformat'. If blank then behaves like namespaceDefinition = 'destination'. If "${SOURCE_NAMESPACE}" then behaves like namespaceDefinition = 'source'.
+  prefix: "" # REQUIRED | Prefix that will be prepended to the name of each stream when it is written to the destination
+  resource_requirements: # OPTIONAL | object | Resource requirements to run workers (blank for unbounded allocations)
+    cpu_limit: "" # OPTIONAL
+    cpu_request: "" # OPTIONAL
+    memory_limit: "" # OPTIONAL
+    memory_request: "" # OPTIONAL
+  schedule_type: basic # OPTIONAL | string | Allowed values: basic, cron, manual
+  schedule_data: # OPTIONAL | object
+    basic_schedule:
+      time_unit: hours # REQUIRED | string | Allowed values: minutes, hours, days, weeks, months
+      units: 1 # REQUIRED | integer
+    # cron:
+    #   cron_time_zone: "UTC" # REQUIRED | string
+    #   cron_expression: "* */2 * * * ?" # REQUIRED | string
+  # operations:
+  ## -------- Uncomment and edit the block below if you want to enable Airbyte normalization --------
+  #   - name: "Normalization"
+  #     operator_configuration:
+  #       normalization:
+  #         option: "basic"
+  #       operator_type: "normalization"
+  ## -------- Uncomment and edit the block below if you want to declare a custom transformation --------
+  #   - name: "My dbt transformations" # REQUIRED | string
+  #     operator_configuration:
+  #       dbt:
+  #         dbt_arguments: "run" # REQUIRED | string | Entrypoint arguments for dbt cli to run the project
+  #         docker_image: "fishtownanalytics/dbt:0.19.1" # REQUIRED | string | Docker image URL with dbt installed
+  #         git_repo_branch: "your-repo-branch-name" # OPTIONAL | string | Git branch name
+  #         git_repo_url: "https://github.com/<your git repo>" # REQUIRED | string | Git repository URL of the custom transformation project
+  #       operator_type: dbt # REQUIRED | string | Allowed values: dbt, normalization
+  sync_catalog: # OPTIONAL | object | 🚨 ONLY edit streams.config, streams.stream should not be edited as schema cannot be changed.
+    streams:
+      - config:
+          alias_name: Account
+          cursor_field:
+            - SystemModstamp
+          destination_sync_mode: append
+          primary_key:
+            - - Id
+          selected: true
+          sync_mode: full_refresh
+        stream:
+          default_cursor_field:
+            - SystemModstamp
+          json_schema:
+            $schema: http://json-schema.org/draft-07/schema#
+            additionalProperties: true
+            properties:
+              ACV__c:
+                type:
+                  - number
+                  - 'null'
+              API_Update__c:
+                type:
+                  - string
+                  - 'null'
+              AccountNumber:
+                type:
+                  - string
+                  - 'null'
+              AccountSource:
+                type:
+                  - string
+                  - 'null'
+              Account_ID_CASESAFE__c:
+                type:
+                  - string
+                  - 'null'
+              Account_Owner_Change_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Account_Owner_Name__c:
+                type:
+                  - string
+                  - 'null'
+              Account_Owner_for_Merge__c:
+                type:
+                  - string
+                  - 'null'
+              Account_Signal__c:
+                type:
+                  - string
+                  - 'null'
+              Account_manager__c:
+                type:
+                  - string
+                  - 'null'
+              Active_opt_out_window__c:
+                type:
+                  - boolean
+                  - 'null'
+              Additional_Opportunity_Notes__c:
+                type:
+                  - string
+                  - 'null'
+              Additional_Questions_Comments__c:
+                type:
+                  - string
+                  - 'null'
+              Additional_Stakeholders__c:
+                type:
+                  - string
+                  - 'null'
+              Additional_Upgrade_Notes__c:
+                type:
+                  - string
+                  - 'null'
+              Additional_brands__c:
+                type:
+                  - string
+                  - 'null'
+              Alliance__c:
+                type:
+                  - string
+                  - 'null'
+              Area_of_Expertise__c:
+                type:
+                  - string
+                  - 'null'
+              BDR_Owner__c:
+                type:
+                  - string
+                  - 'null'
+              BillingAddress:
+                properties:
+                  city:
+                    type:
+                      - 'null'
+                      - string
+                  country:
+                    type:
+                      - 'null'
+                      - string
+                  geocodeAccuracy:
+                    type:
+                      - 'null'
+                      - string
+                  latitude:
+                    type:
+                      - 'null'
+                      - number
+                  longitude:
+                    type:
+                      - 'null'
+                      - number
+                  postalCode:
+                    type:
+                      - 'null'
+                      - string
+                  state:
+                    type:
+                      - 'null'
+                      - string
+                  street:
+                    type:
+                      - 'null'
+                      - string
+                type:
+                  - object
+                  - 'null'
+              BillingCity:
+                type:
+                  - string
+                  - 'null'
+              BillingCountry:
+                type:
+                  - string
+                  - 'null'
+              BillingGeocodeAccuracy:
+                type:
+                  - string
+                  - 'null'
+              BillingLatitude:
+                type:
+                  - number
+                  - 'null'
+              BillingLongitude:
+                type:
+                  - number
+                  - 'null'
+              BillingPostalCode:
+                type:
+                  - string
+                  - 'null'
+              BillingState:
+                type:
+                  - string
+                  - 'null'
+              BillingStreet:
+                type:
+                  - string
+                  - 'null'
+              Buyer__c:
+                type:
+                  - string
+                  - 'null'
+              CRM_Integration_Lead__c:
+                type:
+                  - string
+                  - 'null'
+              CS_Account_Owner__c:
+                type:
+                  - string
+                  - 'null'
+              Certified_Partner__c:
+                type:
+                  - string
+                  - 'null'
+              Certified_partner_main_contact__c:
+                type:
+                  - string
+                  - 'null'
+              Channel_Onboarded__c:
+                type:
+                  - string
+                  - 'null'
+              Channels__c:
+                type:
+                  - string
+                  - 'null'
+              ClientSuccess__ClientSuccess_Assigned_CSM__c:
+                type:
+                  - string
+                  - 'null'
+              ClientSuccess__ClientSuccess_SuccessScore__c:
+                type:
+                  - string
+                  - 'null'
+              ClientSuccess__Sync__c:
+                type:
+                  - boolean
+                  - 'null'
+              Clients_using_PartnerStack__c:
+                type:
+                  - string
+                  - 'null'
+              Company_Category__c:
+                type:
+                  - string
+                  - 'null'
+              Company_Domain__c:
+                type:
+                  - string
+                  - 'null'
+              Company_Size__c:
+                type:
+                  - string
+                  - 'null'
+              Configuration_Lead__c:
+                type:
+                  - string
+                  - 'null'
+              Converted_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              CreatedById:
+                type:
+                  - string
+                  - 'null'
+              CreatedDate:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              Cruchbase_Url__c:
+                type:
+                  - string
+                  - 'null'
+              Crunchbase_List__c:
+                type:
+                  - boolean
+                  - 'null'
+              Currently_a_PartnerStack_Client__c:
+                type:
+                  - string
+                  - 'null'
+              Customer_Integration_Lead__c:
+                type:
+                  - string
+                  - 'null'
+              Customer_Test_Failures__c:
+                type:
+                  - number
+                  - 'null'
+              Customer_Welcome_Email_Sent__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              DOZISF__ZoomInfo_First_Updated__c:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              DOZISF__ZoomInfo_Id__c:
+                type:
+                  - string
+                  - 'null'
+              DOZISF__ZoomInfo_Last_Updated__c:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              Days_Since_Last_Sales_Activity__c:
+                type:
+                  - number
+                  - 'null'
+              Deal_Size__c:
+                type:
+                  - string
+                  - 'null'
+              Demo_Scheduled_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Description:
+                type:
+                  - string
+                  - 'null'
+              Desired_Outcomes_in_First_Year__c:
+                type:
+                  - string
+                  - 'null'
+              Detailed_Closed_Lost_Reason__c:
+                type:
+                  - string
+                  - 'null'
+              Domain__c:
+                type:
+                  - string
+                  - 'null'
+              Drop_Account__c:
+                type:
+                  - boolean
+                  - 'null'
+              Duplicate_GS_Account__c:
+                type:
+                  - boolean
+                  - 'null'
+              Ecommerce_Stack__c:
+                type:
+                  - boolean
+                  - 'null'
+              Email_Introduction_to_New_Clients__c:
+                type:
+                  - string
+                  - 'null'
+              Engage_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Existing_PRM__c:
+                type:
+                  - string
+                  - 'null'
+              Expected_Go_Live_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Features_Included__c:
+                type:
+                  - string
+                  - 'null'
+              First_Contact_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              First_Reached_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Follow_Up_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              From_Partner_Lead__c:
+                type:
+                  - boolean
+                  - 'null'
+              G2Crowd__Active__c:
+                type:
+                  - string
+                  - 'null'
+              G2Crowd__CustomerPriority__c:
+                type:
+                  - string
+                  - 'null'
+              G2Crowd__NumberofLocations__c:
+                type:
+                  - number
+                  - 'null'
+              G2Crowd__SLAExpirationDate__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              G2Crowd__SLASerialNumber__c:
+                type:
+                  - string
+                  - 'null'
+              G2Crowd__SLA__c:
+                type:
+                  - string
+                  - 'null'
+              G2Crowd__UpsellOpportunity__c:
+                type:
+                  - string
+                  - 'null'
+              G2_Category__c:
+                type:
+                  - string
+                  - 'null'
+              G2_Industry__c:
+                type:
+                  - string
+                  - 'null'
+              G2_Link__c:
+                type:
+                  - string
+                  - 'null'
+              G2_URL__c:
+                type:
+                  - string
+                  - 'null'
+              Geographic_Regions_Supported__c:
+                type:
+                  - string
+                  - 'null'
+              Gong__Gong_Count__c:
+                type:
+                  - number
+                  - 'null'
+              Growth_Opportunities__c:
+                type:
+                  - string
+                  - 'null'
+              How_Are_They_Planning_on_Launching__c:
+                type:
+                  - string
+                  - 'null'
+              ICP__c:
+                type:
+                  - boolean
+                  - 'null'
+              Id:
+                type:
+                  - string
+                  - 'null'
+              Inbound_Lead_Contact__c:
+                type:
+                  - string
+                  - 'null'
+              Industries_Supported__c:
+                type:
+                  - string
+                  - 'null'
+              Industry:
+                type:
+                  - string
+                  - 'null'
+              Ingram_Marketplace_Launch_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Integration_Lead__c:
+                type:
+                  - string
+                  - 'null'
+              Integrations_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Integrations_Customers_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Integrations_Partners_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Integrations_Rewards_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Integrations_Transactions_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Integrations__c:
+                type:
+                  - string
+                  - 'null'
+              Internal_Hand_Off_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Internal_Onboarding_Assessment__c:
+                type:
+                  - string
+                  - 'null'
+              Intro_Called_Scheduled__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              IsDeleted:
+                type:
+                  - boolean
+                  - 'null'
+              Is_a_Named_Account__c:
+                type:
+                  - boolean
+                  - 'null'
+              Jigsaw:
+                type:
+                  - string
+                  - 'null'
+              JigsawCompanyId:
+                type:
+                  - string
+                  - 'null'
+              Keep__c:
+                type:
+                  - boolean
+                  - 'null'
+              Kick_Off_Call_Booked_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Kick_Off_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              LFBN__Account_Cleaned_Name__c:
+                type:
+                  - string
+                  - 'null'
+              LFBN__Account_Contact_Domain__c:
+                type:
+                  - string
+                  - 'null'
+              LFBN__Account_Domain__c:
+                type:
+                  - string
+                  - 'null'
+              LFBN__Assign_Account__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Assign_Contacts_to_Owner_Round_robin__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Assign_Region_Only__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Assign_Region_Owner__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Assign_Region__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Assigned_On__c:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              LFBN__Assignment_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              LFBN__Contact_Owner__c:
+                type:
+                  - string
+                  - 'null'
+              LFBN__Created_By_Lane_Four__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Free_Mail_Domain__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__LF_Exclude_From_Assign_Region_Owner__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Lane_Four_Exclude_From_Assign_Region__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Lane_Four_Has_Match__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Lane_Four_Priority_Routing__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Lane_Four_Take_Round_Robin_Credit__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Region_Automation_Performed__c:
+                type:
+                  - boolean
+                  - 'null'
+              LFBN__Region_Only_Routing_Date__c:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              LFBN__Root_Website__c:
+                type:
+                  - string
+                  - 'null'
+              LFBN__Round_Robin_Assignment__c:
+                type:
+                  - string
+                  - 'null'
+              LFBN__Round_Robin__c:
+                type:
+                  - string
+                  - 'null'
+              LFBN__Routing_Date__c:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              LFBN__Simulated_Merge_Winner__c:
+                type:
+                  - boolean
+                  - 'null'
+              LID__LinkedIn_Company_Id__c:
+                type:
+                  - string
+                  - 'null'
+              LastActivityDate:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              LastModifiedById:
+                type:
+                  - string
+                  - 'null'
+              LastModifiedDate:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              LastReferencedDate:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              LastViewedDate:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              Last_Account_Payment_Status_Update__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Last_Activity__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Last_Sales_Activity_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Last_Scrubbed_By__c:
+                type:
+                  - string
+                  - 'null'
+              Latest_vendor_end_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Latest_vendor_start_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              LinkedIn_Bucket__c:
+                type:
+                  - string
+                  - 'null'
+              LinkedIn_URL__c:
+                type:
+                  - string
+                  - 'null'
+              Linkedin_Industry__c:
+                type:
+                  - string
+                  - 'null'
+              List_of_Clients_using_PartnerStack__c:
+                type:
+                  - string
+                  - 'null'
+              Live_on_Ingram_Marketplace__c:
+                type:
+                  - boolean
+                  - 'null'
+              Main_Business_Goal__c:
+                type:
+                  - string
+                  - 'null'
+              Main_PoC_for_New_Vendor_Introductions__c:
+                type:
+                  - string
+                  - 'null'
+              Manual_Cohort_Start_Amount__c:
+                type:
+                  - number
+                  - 'null'
+              Marketing_Landing_Page__c:
+                type:
+                  - string
+                  - 'null'
+              MasterRecordId:
+                type:
+                  - string
+                  - 'null'
+              Maturity_of_Company_Supported__c:
+                type:
+                  - string
+                  - 'null'
+              Migrating_From__c:
+                type:
+                  - string
+                  - 'null'
+              Name:
+                type:
+                  - string
+                  - 'null'
+              New_booking_activation_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Next_Step_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Next_opt_out_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Next_renewal_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Non_Contract_Client__c:
+                type:
+                  - boolean
+                  - 'null'
+              Notes__c:
+                type:
+                  - string
+                  - 'null'
+              NumberOfEmployees:
+                type:
+                  - integer
+                  - 'null'
+              Number_of_Child_Accounts__c:
+                type:
+                  - number
+                  - 'null'
+              Number_of_Opportunities__c:
+                type:
+                  - number
+                  - 'null'
+              Number_of__c:
+                type:
+                  - number
+                  - 'null'
+              Onboarding_Notes__c:
+                type:
+                  - string
+                  - 'null'
+              Onboarding_Rep__c:
+                type:
+                  - string
+                  - 'null'
+              Onboarding_Stage__c:
+                type:
+                  - string
+                  - 'null'
+              Onboarding_Type__c:
+                type:
+                  - string
+                  - 'null'
+              Onboarding_grad_date_formatted__c:
+                type:
+                  - string
+                  - 'null'
+              Onboarding_graduation_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Opportunity_Close_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Opportunity_MRR__c:
+                type:
+                  - number
+                  - 'null'
+              OwnerId:
+                type:
+                  - string
+                  - 'null'
+              PDR__c:
+                type:
+                  - string
+                  - 'null'
+              ParentId:
+                type:
+                  - string
+                  - 'null'
+              Parent_Segment__c:
+                type:
+                  - string
+                  - 'null'
+              Partner_Closed_Lost_Reason__c:
+                type:
+                  - string
+                  - 'null'
+              Partner_Detail__c:
+                type:
+                  - string
+                  - 'null'
+              Partner_Lead__c:
+                type:
+                  - string
+                  - 'null'
+              Partner_Lost_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Partner_Payout_Method__c:
+                type:
+                  - string
+                  - 'null'
+              Partner_Success_Exercise_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Payment_Processor__c:
+                type:
+                  - string
+                  - 'null'
+              Percentage_Take__c:
+                type:
+                  - number
+                  - 'null'
+              Phone:
+                type:
+                  - string
+                  - 'null'
+              PhotoUrl:
+                type:
+                  - string
+                  - 'null'
+              Potential_Feature_Upgrades__c:
+                type:
+                  - string
+                  - 'null'
+              Power_of_One__c:
+                type:
+                  - number
+                  - 'null'
+              Preferred_Stage_for_Introduction__c:
+                type:
+                  - string
+                  - 'null'
+              Previous_Account_Owner__c:
+                type:
+                  - string
+                  - 'null'
+              Previous_Owner__c:
+                type:
+                  - string
+                  - 'null'
+              Previous_Prospect_Type__c:
+                type:
+                  - string
+                  - 'null'
+              Primary_Industry__c:
+                type:
+                  - string
+                  - 'null'
+              Primary_Product_Offering__c:
+                type:
+                  - string
+                  - 'null'
+              Primary_Product_Type__c:
+                type:
+                  - string
+                  - 'null'
+              Primary_Sub_Industry__c:
+                type:
+                  - string
+                  - 'null'
+              Primary_Target_Audience__c:
+                type:
+                  - string
+                  - 'null'
+              Program_Customers_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Program_Launched__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Program_Lead__c:
+                type:
+                  - string
+                  - 'null'
+              Program_Manager__c:
+                type:
+                  - string
+                  - 'null'
+              Program_Partners_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Program_Rewards_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Program_Setup_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Program_Status__c:
+                type:
+                  - string
+                  - 'null'
+              Program_Summary_Hand_Off_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Program_Transactions_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Program_Verification_Completed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Programs_Open_to_Support_on_PartnerStack__c:
+                type:
+                  - string
+                  - 'null'
+              Prospect_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Prospect_Tier_BDR__c:
+                type:
+                  - string
+                  - 'null'
+              Prospect_Tier__c:
+                type:
+                  - string
+                  - 'null'
+              Prospect_Type__c:
+                type:
+                  - string
+                  - 'null'
+              Prospecting_Status__c:
+                type:
+                  - string
+                  - 'null'
+              Pursue_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Qualification_Status__c:
+                type:
+                  - boolean
+                  - 'null'
+              Re_engagement_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Reason_to_Resell_PartnerStack__c:
+                type:
+                  - string
+                  - 'null'
+              Reason_to_refer_leads_to_PartnerStack__c:
+                type:
+                  - string
+                  - 'null'
+              Reason_to_work_with_PartnerStack__c:
+                type:
+                  - string
+                  - 'null'
+              RecordTypeId:
+                type:
+                  - string
+                  - 'null'
+              Relationship_Depth_Audit__c:
+                type:
+                  - boolean
+                  - 'null'
+              Renewal_notice_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Rewards__c:
+                type:
+                  - string
+                  - 'null'
+              SMB_Target_Focus__c:
+                type:
+                  - boolean
+                  - 'null'
+              Sales_Ops__c:
+                type:
+                  - boolean
+                  - 'null'
+              Sales_Rep__c:
+                type:
+                  - string
+                  - 'null'
+              Scope_Defined_and_Confirmed__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Scrub_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Segment__c:
+                type:
+                  - string
+                  - 'null'
+              Services_Offered__c:
+                type:
+                  - string
+                  - 'null'
+              ShippingAddress:
+                properties:
+                  city:
+                    type:
+                      - 'null'
+                      - string
+                  country:
+                    type:
+                      - 'null'
+                      - string
+                  geocodeAccuracy:
+                    type:
+                      - 'null'
+                      - string
+                  latitude:
+                    type:
+                      - 'null'
+                      - number
+                  longitude:
+                    type:
+                      - 'null'
+                      - number
+                  postalCode:
+                    type:
+                      - 'null'
+                      - string
+                  state:
+                    type:
+                      - 'null'
+                      - string
+                  street:
+                    type:
+                      - 'null'
+                      - string
+                type:
+                  - object
+                  - 'null'
+              ShippingCity:
+                type:
+                  - string
+                  - 'null'
+              ShippingCountry:
+                type:
+                  - string
+                  - 'null'
+              ShippingGeocodeAccuracy:
+                type:
+                  - string
+                  - 'null'
+              ShippingLatitude:
+                type:
+                  - number
+                  - 'null'
+              ShippingLongitude:
+                type:
+                  - number
+                  - 'null'
+              ShippingPostalCode:
+                type:
+                  - string
+                  - 'null'
+              ShippingState:
+                type:
+                  - string
+                  - 'null'
+              ShippingStreet:
+                type:
+                  - string
+                  - 'null'
+              SicDesc:
+                type:
+                  - string
+                  - 'null'
+              Size_of_Client_Supported__c:
+                type:
+                  - string
+                  - 'null'
+              Special_Programs__c:
+                type:
+                  - string
+                  - 'null'
+              Stage__c:
+                type:
+                  - string
+                  - 'null'
+              Stage_of_Opportunity__c:
+                type:
+                  - string
+                  - 'null'
+              Starting_Channel__c:
+                type:
+                  - string
+                  - 'null'
+              Status__c:
+                type:
+                  - string
+                  - 'null'
+              Stripe_Plan__c:
+                type:
+                  - string
+                  - 'null'
+              Sub_Segment__c:
+                type:
+                  - string
+                  - 'null'
+              Subject__c:
+                type:
+                  - string
+                  - 'null'
+              SystemModstamp:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              Team_Members_to_CC_for_new_Vendor_Intro__c:
+                type:
+                  - string
+                  - 'null'
+              Testing_Document_Link__c:
+                type:
+                  - string
+                  - 'null'
+              Touch_Model__c:
+                type:
+                  - string
+                  - 'null'
+              Transaction_Integration_Lead__c:
+                type:
+                  - string
+                  - 'null'
+              Transfer_Account_To__c:
+                type:
+                  - string
+                  - 'null'
+              Type:
+                type:
+                  - string
+                  - 'null'
+              Type_of_Integration_Setup__c:
+                type:
+                  - string
+                  - 'null'
+              Type_of_Partner__c:
+                type:
+                  - string
+                  - 'null'
+              User_Role__c:
+                type:
+                  - string
+                  - 'null'
+              Vendor_Potential_Score__c:
+                type:
+                  - string
+                  - 'null'
+              Vendor_age_category__c:
+                type:
+                  - string
+                  - 'null'
+              Vendor_age_in_years__c:
+                type:
+                  - number
+                  - 'null'
+              Vendor_contract_termination__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Vendor_lifecycle_stage__c:
+                type:
+                  - string
+                  - 'null'
+              Vendor_min_grad_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              Vitally_health_score__c:
+                type:
+                  - number
+                  - 'null'
+              Website:
+                type:
+                  - string
+                  - 'null'
+              What_Does_Success_Look_Like__c:
+                type:
+                  - string
+                  - 'null'
+              Why_Did_Customer_Purchase_Partnerstack__c:
+                type:
+                  - string
+                  - 'null'
+              account_stage__c:
+                type:
+                  - string
+                  - 'null'
+              account_state__c:
+                type:
+                  - string
+                  - 'null'
+              account_status__c:
+                type:
+                  - string
+                  - 'null'
+              acv_potential__c:
+                type:
+                  - number
+                  - 'null'
+              assigned_account_manager__c:
+                type:
+                  - string
+                  - 'null'
+              assigned_account_manager_email__c:
+                type:
+                  - string
+                  - 'null'
+              assigned_csm__c:
+                type:
+                  - string
+                  - 'null'
+              assigned_csm_email__c:
+                type:
+                  - string
+                  - 'null'
+              churn_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              city_hq__c:
+                type:
+                  - string
+                  - 'null'
+              cohort_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              company_created_at__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              company_id__c:
+                type:
+                  - number
+                  - 'null'
+              country_hq__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase_IPO_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              crunchbase__CB_Permalink_TriggerField__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Crunchbase_Categories__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Crunchbase_Enrichment_Id__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Crunchbase_URL__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Date_Crunchbase_Last_Update__c:
+                format: date-time
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Latest_Round_Date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Latest_Round_Funding_Type_Series__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Latest_Round_Funding_Type__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Latest_Round_Money_Raised_in_USD__c:
+                type:
+                  - number
+                  - 'null'
+              crunchbase__Number_of_Acquisitions_Formula__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Number_of_Acquisitions__c:
+                type:
+                  - number
+                  - 'null'
+              crunchbase__Number_of_Employees_Crunchbase__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Number_of_Funding_Rounds_Formula__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Number_of_Funding_Rounds__c:
+                type:
+                  - number
+                  - 'null'
+              crunchbase__Number_of_Investments_Formula__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Number_of_Investments__c:
+                type:
+                  - number
+                  - 'null'
+              crunchbase__Number_of_Investors_Formula__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase__Number_of_Investors__c:
+                type:
+                  - number
+                  - 'null'
+              crunchbase__Total_Funding_USD__c:
+                type:
+                  - number
+                  - 'null'
+              crunchbase__Uuid__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase_description__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase_founded_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              crunchbase_full_description__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase_rank__c:
+                type:
+                  - number
+                  - 'null'
+              crunchbase_revenue_range__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase_stock_exchange__c:
+                type:
+                  - string
+                  - 'null'
+              crunchbase_stock_symbol__c:
+                type:
+                  - string
+                  - 'null'
+              cs_onboarding_rep__c:
+                type:
+                  - string
+                  - 'null'
+              cs_sales_rep__c:
+                type:
+                  - string
+                  - 'null'
+              days_in_post_kickoff_activity__c:
+                type:
+                  - number
+                  - 'null'
+              days_in_pre_kickoff_call__c:
+                type:
+                  - number
+                  - 'null'
+              days_in_testing__c:
+                type:
+                  - number
+                  - 'null'
+              days_pending_launch__c:
+                type:
+                  - number
+                  - 'null'
+              days_since_last_activity__c:
+                type:
+                  - number
+                  - 'null'
+              days_since_last_payment__c:
+                type:
+                  - number
+                  - 'null'
+              days_to_complete_int__c:
+                type:
+                  - number
+                  - 'null'
+              days_to_complete_pc__c:
+                type:
+                  - number
+                  - 'null'
+              days_to_launch__c:
+                type:
+                  - number
+                  - 'null'
+              days_to_ob_intro__c:
+                type:
+                  - number
+                  - 'null'
+              days_to_renewal__c:
+                type:
+                  - number
+                  - 'null'
+              first_payment_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              g2_industry_via_API__c:
+                type:
+                  - string
+                  - 'null'
+              g2_sub_category__c:
+                type:
+                  - string
+                  - 'null'
+              g2_subcategory_via_API__c:
+                type:
+                  - string
+                  - 'null'
+              go_live_complete__c:
+                type:
+                  - boolean
+                  - 'null'
+              has_contract__c:
+                type:
+                  - boolean
+                  - 'null'
+              int_complete__c:
+                type:
+                  - boolean
+                  - 'null'
+              int_pc_complete_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              ip_address__c:
+                type:
+                  - string
+                  - 'null'
+              is_g2_updated__c:
+                type:
+                  - boolean
+                  - 'null'
+              is_organic_traffic_updated__c:
+                type:
+                  - boolean
+                  - 'null'
+              key__c:
+                type:
+                  - string
+                  - 'null'
+              kickoff_call_complete__c:
+                type:
+                  - boolean
+                  - 'null'
+              last_month_organic_traffic__c:
+                type:
+                  - number
+                  - 'null'
+              last_payment_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              manual_churn_date__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              missed_payment__c:
+                type:
+                  - boolean
+                  - 'null'
+              no_program_summary__c:
+                type:
+                  - boolean
+                  - 'null'
+              not_churned_until__c:
+                format: date
+                type:
+                  - string
+                  - 'null'
+              ob_csat_q1__c:
+                type:
+                  - number
+                  - 'null'
+              ob_csat_q2__c:
+                type:
+                  - number
+                  - 'null'
+              ob_csat_q3__c:
+                type:
+                  - string
+                  - 'null'
+              ob_csat_q4__c:
+                type:
+                  - number
+                  - 'null'
+              ob_csat_q5__c:
+                type:
+                  - string
+                  - 'null'
+              ob_csat_q6__c:
+                type:
+                  - string
+                  - 'null'
+              ob_csat_respondent__c:
+                type:
+                  - string
+                  - 'null'
+              of_Deals_Registered_by_Partner__c:
+                type:
+                  - number
+                  - 'null'
+              onboarding_package_link__c:
+                type:
+                  - string
+                  - 'null'
+              paid_before__c:
+                type:
+                  - boolean
+                  - 'null'
+              paid_sub_last_month__c:
+                type:
+                  - boolean
+                  - 'null'
+              pc_complete__c:
+                type:
+                  - boolean
+                  - 'null'
+              program_summary_link__c:
+                type:
+                  - string
+                  - 'null'
+              program_v1_agreement_complete__c:
+                type:
+                  - boolean
+                  - 'null'
+              record_type_test__c:
+                type:
+                  - string
+                  - 'null'
+              region_hq__c:
+                type:
+                  - string
+                  - 'null'
+              shopify_store__c:
+                type:
+                  - boolean
+                  - 'null'
+              similar_customers__c:
+                type:
+                  - string
+                  - 'null'
+              skipped_onboarding__c:
+                type:
+                  - boolean
+                  - 'null'
+              test_account__c:
+                type:
+                  - boolean
+                  - 'null'
+              testing_complete__c:
+                type:
+                  - boolean
+                  - 'null'
+              ultimate_ancestor__c:
+                type:
+                  - boolean
+                  - 'null'
+            type: object
+          name: Account
+          source_defined_cursor: true
+          source_defined_primary_key:
+            - - Id
+          supported_sync_modes:
+            - full_refresh
+            - incremental
+      - config:
+          alias_name: Describe
+          cursor_field: []
+          destination_sync_mode: append
+          primary_key:
+            - - name
+          selected: true
+          sync_mode: full_refresh
+        stream:
+          default_cursor_field: []
+          json_schema:
+            properties:
+              actionOverrides:
+                items:
+                  properties:
+                    formFactor:
+                      type:
+                        - 'null'
+                        - string
+                    isAvailableInTouch:
+                      type:
+                        - 'null'
+                        - boolean
+                    name:
+                      type:
+                        - 'null'
+                        - string
+                    pageId:
+                      type:
+                        - 'null'
+                        - string
+                    url:
+                      type:
+                        - 'null'
+                        - string
+                  type:
+                    - 'null'
+                    - object
+                type:
+                  - 'null'
+                  - array
+              activateable:
+                type:
+                  - 'null'
+                  - boolean
+              associateEntityType:
+                type:
+                  - 'null'
+                  - string
+              associateParentEntity:
+                type:
+                  - 'null'
+                  - string
+              childRelationships:
+                items:
+                  properties:
+                    cascadeDelete:
+                      type:
+                        - 'null'
+                        - boolean
+                    childSObject:
+                      type: string
+                    deprecatedAndHidden:
+                      type:
+                        - 'null'
+                        - boolean
+                    field:
+                      type:
+                        - 'null'
+                        - string
+                    junctionIdListNames:
+                      items:
+                        type:
+                          - 'null'
+                          - string
+                      type: array
+                    junctionReferenceTo:
+                      items:
+                        type:
+                          - 'null'
+                          - string
+                      type: array
+                    relationshipName:
+                      type:
+                        - 'null'
+                        - string
+                    restrictedDelete:
+                      type:
+                        - 'null'
+                        - boolean
+                  type:
+                    - 'null'
+                    - object
+                type:
+                  - 'null'
+                  - array
+              compactLayoutable:
+                type:
+                  - 'null'
+                  - boolean
+              createable:
+                type:
+                  - 'null'
+                  - boolean
+              custom:
+                type:
+                  - 'null'
+                  - boolean
+              customSetting:
+                type:
+                  - 'null'
+                  - boolean
+              dataTranslationEnabled:
+                type:
+                  - 'null'
+                  - boolean
+              deepCloneable:
+                type:
+                  - 'null'
+                  - boolean
+              defaultImplementation:
+                type:
+                  - 'null'
+                  - string
+              deletable:
+                type:
+                  - 'null'
+                  - boolean
+              deprecatedAndHidden:
+                type:
+                  - 'null'
+                  - boolean
+              extendedBy:
+                type:
+                  - 'null'
+                  - string
+              extendsInterfaces:
+                type:
+                  - 'null'
+                  - string
+              feedEnabled:
+                type:
+                  - 'null'
+                  - boolean
+              fields:
+                items:
+                  properties:
+                    autoNumber:
+                      type:
+                        - 'null'
+                        - boolean
+                    byteLength:
+                      type:
+                        - 'null'
+                        - integer
+                    calculated:
+                      type:
+                        - 'null'
+                        - boolean
+                    caseSensitive:
+                      type:
+                        - 'null'
+                        - boolean
+                    controllerName:
+                      type:
+                        - 'null'
+                        - string
+                    createable:
+                      type:
+                        - 'null'
+                        - boolean
+                    custom:
+                      type:
+                        - 'null'
+                        - boolean
+                    dataTranslationEnabled:
+                      type:
+                        - 'null'
+                        - boolean
+                    defaultValueFormula:
+                      type:
+                        - 'null'
+                        - string
+                    defaultedOnCreate:
+                      type:
+                        - 'null'
+                        - boolean
+                    dependentPicklist:
+                      type:
+                        - 'null'
+                        - boolean
+                    deprecatedAndHidden:
+                      type:
+                        - 'null'
+                        - boolean
+                    digits:
+                      type:
+                        - 'null'
+                        - integer
+                    displayLocationInDecimal:
+                      type:
+                        - 'null'
+                        - boolean
+                    encrypted:
+                      type:
+                        - 'null'
+                        - boolean
+                    extraTypeInfo:
+                      type:
+                        - 'null'
+                        - string
+                    filterable:
+                      type:
+                        - 'null'
+                        - boolean
+                    filteredLookupInfo:
+                      properties:
+                        controllingFields:
+                          items:
+                            type:
+                              - 'null'
+                              - string
+                          type:
+                            - 'null'
+                            - array
+                        dependent:
+                          type:
+                            - 'null'
+                            - boolean
+                        optionalFilter:
+                          type:
+                            - 'null'
+                            - boolean
+                      type:
+                        - 'null'
+                        - object
+                    formula:
+                      type:
+                        - 'null'
+                        - string
+                    groupable:
+                      type:
+                        - 'null'
+                        - boolean
+                    highScaleNumber:
+                      type:
+                        - 'null'
+                        - boolean
+                    htmlFormatted:
+                      type:
+                        - 'null'
+                        - boolean
+                    idLookup:
+                      type:
+                        - 'null'
+                        - boolean
+                    inlineHelpText:
+                      type:
+                        - 'null'
+                        - string
+                    label:
+                      type:
+                        - 'null'
+                        - string
+                    length:
+                      type:
+                        - 'null'
+                        - integer
+                    mask:
+                      type:
+                        - 'null'
+                        - string
+                    maskType:
+                      type:
+                        - 'null'
+                        - string
+                    name:
+                      type:
+                        - 'null'
+                        - string
+                    nameField:
+                      type:
+                        - 'null'
+                        - boolean
+                    namePointing:
+                      type:
+                        - 'null'
+                        - boolean
+                    nillable:
+                      type:
+                        - 'null'
+                        - boolean
+                    permissionable:
+                      type:
+                        - 'null'
+                        - boolean
+                    picklistValues:
+                      items:
+                        properties:
+                          active:
+                            type:
+                              - 'null'
+                              - boolean
+                          defaultValue:
+                            type:
+                              - 'null'
+                              - boolean
+                          label:
+                            type:
+                              - 'null'
+                              - string
+                          validFor:
+                            items:
+                              type:
+                                - 'null'
+                                - integer
+                            type:
+                              - 'null'
+                              - array
+                          value:
+                            type:
+                              - 'null'
+                              - string
+                        type:
+                          - 'null'
+                          - object
+                      type:
+                        - 'null'
+                        - array
+                    polymorphicForeignKey:
+                      type:
+                        - 'null'
+                        - boolean
+                    precision:
+                      type:
+                        - 'null'
+                        - integer
+                    referenceTargetField:
+                      type:
+                        - 'null'
+                        - string
+                    referenceTo:
+                      items:
+                        type:
+                          - 'null'
+                          - string
+                      type: array
+                    relationshipName:
+                      type:
+                        - 'null'
+                        - string
+                    relationshipOrder:
+                      type:
+                        - 'null'
+                        - integer
+                    restrictedPicklist:
+                      type:
+                        - 'null'
+                        - boolean
+                    scale:
+                      type:
+                        - 'null'
+                        - integer
+                    searchPrefilterable:
+                      type:
+                        - 'null'
+                        - boolean
+                    soapType:
+                      type:
+                        - 'null'
+                        - string
+                    sortable:
+                      type:
+                        - 'null'
+                        - boolean
+                    type:
+                      type:
+                        - 'null'
+                        - string
+                    unique:
+                      type:
+                        - 'null'
+                        - boolean
+                    updateable:
+                      type:
+                        - 'null'
+                        - boolean
+                    writeRequiresMasterRead:
+                      type:
+                        - 'null'
+                        - boolean
+                  type:
+                    - 'null'
+                    - object
+                type:
+                  - 'null'
+                  - array
+              implementedBy:
+                type:
+                  - 'null'
+                  - string
+              implementsInterfaces:
+                type:
+                  - 'null'
+                  - string
+              isInterface:
+                type:
+                  - 'null'
+                  - boolean
+              keyPrefix:
+                type:
+                  - 'null'
+                  - string
+              label:
+                type:
+                  - 'null'
+                  - string
+              labelPlural:
+                type:
+                  - 'null'
+                  - string
+              layoutable:
+                type:
+                  - 'null'
+                  - boolean
+              mergeable:
+                type:
+                  - 'null'
+                  - boolean
+              mruEnabled:
+                type:
+                  - 'null'
+                  - boolean
+              name:
+                type:
+                  - 'null'
+                  - string
+              namedLayoutInfos:
+                items:
+                  properties:
+                    name:
+                      type:
+                        - 'null'
+                        - string
+                  type:
+                    - 'null'
+                    - object
+                type:
+                  - 'null'
+                  - array
+              networkScopeFieldName:
+                type:
+                  - 'null'
+                  - string
+              queryable:
+                type:
+                  - 'null'
+                  - boolean
+              recordTypeInfos:
+                type:
+                  - 'null'
+                  - array
+              replicateable:
+                type:
+                  - 'null'
+                  - boolean
+              retrieveable:
+                type:
+                  - 'null'
+                  - boolean
+              searchLayoutable:
+                type:
+                  - 'null'
+                  - boolean
+              searchable:
+                type:
+                  - 'null'
+                  - boolean
+              supportedScopes:
+                items:
+                  properties:
+                    label:
+                      type:
+                        - 'null'
+                        - string
+                    name:
+                      type:
+                        - 'null'
+                        - string
+                  type:
+                    - 'null'
+                    - object
+                type:
+                  - 'null'
+                  - array
+              triggerable:
+                type:
+                  - 'null'
+                  - boolean
+              undeletable:
+                type:
+                  - 'null'
+                  - boolean
+              updateable:
+                type:
+                  - 'null'
+                  - boolean
+              urlDetail:
+                type:
+                  - 'null'
+                  - string
+              urlEdit:
+                type:
+                  - 'null'
+                  - string
+              urlNew:
+                type:
+                  - 'null'
+                  - string
+            type: object
+          name: Describe
+          source_defined_primary_key:
+            - - name
+          supported_sync_modes:
+            - full_refresh
